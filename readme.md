@@ -1,4 +1,4 @@
-# WARNING: As of right now, Medusa is not ready for any use whatsoever. The peers should be working properly, but there are no real plugins yet. The master is completely broken and not functional.
+i## WARNING: As of right now, Medusa is not ready for productional use. There is only one plugin and the output happens to a simple log.
 
 # Medusa
 
@@ -32,7 +32,7 @@ Depending on the type of check, Medusa will check from the master or send a quer
 
 You will edit peers.conf and enter a list of peers in the format "hostname ip", where hostname only serves as an identifier and does not have to match the actual hostname.
 Then you need to write a ./peers/<hostname>.conf for every peer in peers.conf, in which you define the checks to make. The checknames are all capital and the same as the names of the corrosponding module, so PING would look for ./modules/PING.py and use it, or, if PING.py does not exist, send a query for PING to the peer (which would be pointless). The peer always uses it's own modules and sends back either a result or an error message.
-At last, add the name of the check into modules.enabled on the peer-side, one per line. This prevents blackhats sending queries for potentially malicious executables by using a simple whitelist.
+At last, add the name of the check into modules.enabled on the peer-side, one per line. This prevents blackhats sending queries for potentially malicious executables by using a simple whitelist.Also, open port 5006.
 
 ## Expanding
 

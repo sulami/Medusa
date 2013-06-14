@@ -11,7 +11,7 @@ import sys
 INST_PATH = "/home/sulami/medusa/peer/"
 
 IP = '0.0.0.0'
-PORT = 5005
+PORT = 5006
 BUFFER_SIZE = 1024
 moden = []
 

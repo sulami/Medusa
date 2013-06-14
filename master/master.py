@@ -39,7 +39,7 @@ def read_peers():
 
 # send queries over the network, returns the reply
 def send_query(IP, QUERY):
-    PORT = 5005
+    PORT = 5006
     BUFFER_SIZE = 1024
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
