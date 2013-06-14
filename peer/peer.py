@@ -7,7 +7,6 @@ import os
 import socket
 import subprocess
 import sys
-import time
 
 INST_PATH = "/home/sulami/medusa/peer/"
 
@@ -23,6 +22,7 @@ try:
         moden.append(line.rstrip('\n'))
 except:
     print "ERROR - CANNOT READ modules.enabled"
+    quit()
 
 # Open socket and listen
 def listen():
@@ -51,7 +51,6 @@ class MyDaemon(Daemon):
     def run(self):
         while True:
             listen()
-            time.sleep(1)
 
 if __name__ == "__main__":
     daemon = MyDaemon('/tmp/medusa-peer.pid')
