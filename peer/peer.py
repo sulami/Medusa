@@ -22,6 +22,7 @@ try:
         moden.append(line.rstrip('\n'))
 except:
     print "ERROR - CANNOT READ modules.enabled"
+    # not quite optimal yet
     quit()
 
 # Open socket and listen
@@ -39,10 +40,10 @@ def listen():
             try:
                 result = subprocess.check_output(INST_PATH + 'modules/' + nquery + '.py', shell=True)
             except:
-                conn.send("ERROR - MODULE " + nquery + " DID NOT RETURN ZERO (BROKEN/MISSING MODULE?)")
+                conn.send("ERROR: MODULE " + nquery + " DID NOT RETURN ZERO (BROKEN/MISSING MODULE?)")
             conn.send(result)
         else:
-            conn.send("ERROR - MODULE " + nquery + " NOT FOUND OR DISABLED (modules.enabled?)\n")
+            conn.send("ERROR: MODULE " + nquery + " NOT FOUND OR DISABLED (modules.enabled?)\n")
     conn.close()
     s.close()
 

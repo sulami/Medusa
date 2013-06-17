@@ -37,6 +37,19 @@ def read_peers():
         write_log("ERROR: could not open peers.conf, exiting")
         quit()
 
+# interprets the results coming from plugins, returns int values
+def interpret(result):
+    if result.startswith('OK'):
+        return 0
+    elif result.startswith('WARNING'):
+        return 1
+    elif result.startswith('CRITICAL'):
+        return 2
+    elif result.startswith('ERROR'):
+        return 3
+    else:
+        return 0
+
 # send queries over the network, returns the reply
 def send_query(IP, QUERY):
     PORT = 5006
