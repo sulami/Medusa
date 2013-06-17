@@ -10,7 +10,7 @@ import sys
 import time
 
 INST_PATH = "/home/sulami/medusa/master/"
-CHECK_INTERVAL = 30
+CHECK_INTERVAL = 300
 LOG_PATH = "/var/log/medusa-master.log"
 OUT_PATH = "/home/sulami/medusa.out"
 
@@ -35,7 +35,7 @@ def read_peers():
         return peers
     except:
         write_log("ERROR: could not open peers.conf, exiting")
-        quit()
+        sys.exit(1)
 
 # interprets the results coming from plugins, returns int values
 def interpret(result):
@@ -62,7 +62,7 @@ def send_query(IP, QUERY):
         s.close()
     except:
         write_log("ERROR: could not establish connection to " + str(IP) + ":" + str(PORT))
-        return "NETWORK ERROR"
+        return "NETWORK ERROR, CHECK LOG"
     s.close()
     return data
 
@@ -84,7 +84,7 @@ def read_services(peers):
             write_log("ERROR: could not open peers/" + peer.rstrip('\n') + ".conf as specified in peers.conf")
             quit() 
         for service in peerconf.readlines():
-            nservice = service.rstrip('\n')
+            nservice = service.rstrip()
             if os.path.isfile(INST_PATH + 'modules/' + nservice + '.py'):
                 try:
                     result = subprocess.check_output([INST_PATH + 'modules/' + nservice + '.py', peers[peer]])
