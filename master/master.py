@@ -21,7 +21,7 @@ OUT_PATH = "/home/sulami/medusa.out"
 # writes events to the log
 def write_log(data):
     with open(LOG_PATH, mode='a+') as logfile:
-        logfile.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) + " - " + data)
+        logfile.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) + " - " + data + "\n")
     logfile.close()
 
 # read peerlist (peers.conf), returns the peer dictionary
@@ -72,9 +72,9 @@ def read_services(peers):
             quit() 
         for service in peerconf.readlines():
             nservice = service.rstrip('\n')
-            if os.path.isfile('modules/' + nservice + '.py'):
+            if os.path.isfile(INST_PATH + 'modules/' + nservice + '.py'):
                 try:
-                    result = subprocess.check_output(INST_PATH + 'modules/' + nservice + '.py', peers[peer], shell=True)
+                    result = subprocess.check_output([INST_PATH + 'modules/' + nservice + '.py', peers[peer]])
                     write_out(peer, nservice, result)
                 except:
                     write_log("ERROR: failed to run local module " + nservice)
@@ -83,7 +83,7 @@ def read_services(peers):
         peerconf.close()
         
 """
-print read_services(read_peers())
+read_services(read_peers())
 """
 
 # Generic Unix daemon code, courtesy of Sander Marechal, http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
@@ -97,8 +97,8 @@ if __name__ == "__main__":
     daemon = MyDaemon('/tmp/medusa-master.pid')
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
-            daemon.start()
             write_log("Daemon started")
+            daemon.start()
         elif 'stop' == sys.argv[1]:
             daemon.stop()
             write_log("Daemon stopped")
