@@ -5,8 +5,8 @@
 import subprocess
 import sys
 
-CRIT = 1.0
-WARN = 0.5
+CRIT = 5.0
+WARN = 1.0
 NOOFPINGS = '3'
 
 # TODO: timeouts

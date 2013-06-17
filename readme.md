@@ -1,4 +1,4 @@
-i## WARNING: As of right now, Medusa is not ready for productional use. There is only one plugin and the output happens to a simple log.
+### WARNING: As of right now, Medusa is not ready for productional use. There is only one plugin and the output happens to a simple log.
 
 # Medusa
 
