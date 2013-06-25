@@ -85,9 +85,9 @@ def read_services(peers):
             quit() 
         for service in peerconf.readlines():
             nservice = service.rstrip()
-            if os.path.isfile(INST_PATH + 'modules/' + nservice + '.py'):
+            if os.path.isfile(INST_PATH + 'modules/' + nservice):
                 try:
-                    result = subprocess.check_output([INST_PATH + 'modules/' + nservice + '.py', peers[peer]])
+                    result = subprocess.check_output([INST_PATH + 'modules/' + nservice, peers[peer]])
                     write_out(peer, nservice, result)
                 except:
                     write_log("ERROR: failed to run local module " + nservice)

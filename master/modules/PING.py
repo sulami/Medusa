@@ -9,8 +9,6 @@ CRIT = 5.0
 WARN = 1.0
 NOOFPINGS = '3'
 
-# TODO: timeouts
-
 # Performing the ping and filtering everything but the last line
 data = subprocess.check_output(['ping', '-c', NOOFPINGS, sys.argv[1]])
 data2 = data.split('\n')

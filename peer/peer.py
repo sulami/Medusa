@@ -36,9 +36,9 @@ def listen():
         query = conn.recv(BUFFER_SIZE)
         if not query: break
         nquery = query.rstrip('\n')
-        if os.path.isfile(INST_PATH + 'modules/' + nquery + '.py') and nquery in moden:
+        if os.path.isfile(INST_PATH + 'modules/' + nquery) and nquery in moden:
             try:
-                result = subprocess.check_output(INST_PATH + 'modules/' + nquery + '.py', shell=True)
+                result = subprocess.check_output(INST_PATH + 'modules/' + nquery, shell=True)
             except:
                 conn.send("ERROR: MODULE " + nquery + " DID NOT RETURN ZERO (BROKEN/MISSING MODULE?)")
             conn.send(result)
