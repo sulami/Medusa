@@ -59,7 +59,6 @@ def send_query(IP, QUERY):
         s.connect((IP, PORT))
         s.send(QUERY)
         data = s.recv(BUFFER_SIZE)
-        s.close()
     except:
         write_log("ERROR: could not establish connection to " + str(IP) + ":" + str(PORT))
         return "NETWORK ERROR, CHECK LOG"
