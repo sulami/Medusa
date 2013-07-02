@@ -15,7 +15,7 @@ LOG_PATH = "/var/log/medusa-master.log"
 OUT_PATH = "/home/sulami/medusa.out"
 
 #
-# TODO: Proper output to somewhere, analyzing prefixes
+# TODO: Proper output to somewhere
 #
 
 # writes events to the log
@@ -94,6 +94,13 @@ def read_services(peers):
             else:
                 write_out(peer, nservice, send_query(peers[peer], nservice))
         peerconf.close()
+
+def clear_output():
+    try:
+        open(OUT_PATH, mode='w')
+    except:
+        return
+
 """   
 print interpret("DISK OK - free space...")
 read_services(read_peers())
@@ -103,6 +110,7 @@ read_services(read_peers())
 class MyDaemon(Daemon):
     def run(self):
         while True:
+            clear_output()
             read_services(read_peers())
             time.sleep(CHECK_INTERVAL)
 
@@ -125,4 +133,3 @@ if __name__ == "__main__":
     else:
         print "usage: %s start|stop|restart" % sys.argv[0]
         sys.exit(2)
-"""
