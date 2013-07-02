@@ -36,6 +36,6 @@ else:
     STATUS = 'WARNING'
 
 # print results, exit
-print STATUS + " package loss: " + ploss2 + " " + data3
+print STATUS + " - package loss: " + ploss2 + " " + data3
 
 sys.exit(0)

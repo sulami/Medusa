@@ -15,5 +15,5 @@ elif (float(avg[0]) or float(avg[1]) or float(avg[2])) >= WARN:
     STATUS = "WARNING"
 else:
     STATUS = "OK"
-print STATUS + " " + avg[0] + " " + avg[1] + " " + avg[2]
+print STATUS + " - " + avg[0] + " " + avg[1] + " " + avg[2]
 sys.exit(0)

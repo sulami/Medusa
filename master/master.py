@@ -39,13 +39,14 @@ def read_peers():
 
 # interprets the results coming from plugins, returns int values
 def interpret(result):
-    if result.startswith('OK'):
+    resultstatus = (result.split(" - "))[0]
+    if 'OK' in resultstatus:
         return 0
-    elif result.startswith('WARNING'):
+    elif 'WARNING' in resultstatus:
         return 1
-    elif result.startswith('CRITICAL'):
+    elif 'CRITICAL' in resultstatus:
         return 2
-    elif result.startswith('ERROR'):
+    elif 'ERROR' in resultstatus:
         return 3
     else:
         return 0
@@ -93,8 +94,8 @@ def read_services(peers):
             else:
                 write_out(peer, nservice, send_query(peers[peer], nservice))
         peerconf.close()
-        
-"""
+"""   
+print interpret("DISK OK - free space...")
 read_services(read_peers())
 """
 
@@ -124,3 +125,4 @@ if __name__ == "__main__":
     else:
         print "usage: %s start|stop|restart" % sys.argv[0]
         sys.exit(2)
+"""
