@@ -70,7 +70,7 @@ def send_query(IP, QUERY):
 def write_out(host, query, data):
     try:
         with open(OUT_PATH, mode='a+') as output_file:
-            output_file.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) + " - " + host + " - " + query + " - " + data)
+            output_file.write(time.strftime(host + " :: " + query + " :: " + data)
         output_file.close()
     except:
         write_log("ERROR: could not output data to " + OUT_PATH)

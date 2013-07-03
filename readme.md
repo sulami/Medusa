@@ -33,7 +33,7 @@ The repo contains three main folders, master, peer and mswo. In master are the f
     |-template.html
     \-mswo
 
-Depending on the type of check, Medusa will check from the master or send a query to the peer, sends back the results. When a local module for a check is present, the check from the master will be prefered. Mswo (the medusa simple website output) is separate and will act as a separate daemon to parse the text output to a html-file for remote (and local) viewing. If you want, you can change ./mswo/template.html to change the layout, or write your own output parser.
+Depending on the type of check, Medusa will check from the master or send a query to the peer, sends back the results. When a local module for a check is present, the check from the master will be prefered. Mswo (the medusa simple website output) is separate and will act as a separate daemon to parse the text output to a html-file for remote (and local) viewing. If you want to, you can write your own output parser as well.
 
 ## Now what do I do?
 

@@ -11,19 +11,59 @@ INST_PATH = "/home/sulami/medusa/mswo/"
 RENDER_INTERVAL = 300
 IN_PATH = "/home/sulami/medusa.out"
 OUT_PATH = "/home/sulami/mswo.html"
+HTML_HEAD = "<html>\n<head>\n<title>Medusa</title>\n<meta http-equiv=\"refresh\" content=\"" + str(RENDER_INTERVAL) + "\">\n</head>\n<body>\n<table cellpadding=\"5\">\n"
+HTML_FOOT = "</table>\n</body>\n</html>"
 
-def readtxt():
+# Writes the upper part of the page, flushes the old page
+def write_head():
     try:
-        with outtxt as open(IN_PATH, mode='r'):
-            
+        with open(OUT_PATH, mode='w') as file:
+            file.write(HTML_HEAD)
+        file.close()
+    except:
+        sys.exit(1)
+
+# Writes the lower part of the page
+def write_foot():
+    try:
+        with open(OUT_PATH, mode='a') as file:
+            file.write(HTML_FOOT)
+        file.close()
+    except:
+        sys.exit(1)
+
+# Writes a line of data into the table, after formatting it into a table row
+def write_data(data):
+    try:
+        form = data.split(" :: ")
+        tab_row = "<tr><td>" + form[0] + "</td><td>" + form[1] + "</td><td>" + form[2] + "</td></tr>\n"
+        with open(OUT_PATH, mode='a') as file:
+            file.write(tab_row)
+        file.close()
+    except:
+        sys.exit(1)
+
+# Reads the data sets from medusa.out and calls write_data()
+def read_data():
+    try:
+        with open(IN_PATH, mode='r') as file:
+            for data_set in file.readlines():
+                write_data(data_set)
+        file.close()
+    except:
+        sys.exit(1)
+
+write_head()
+read_data()
+write_foot()
 
 """
 # Generic Unix daemon code, courtesy of Sander Marechal, http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 class MyDaemon(Daemon):
     def run(self):
         while True:
-            read_services(read_peers())
-            time.sleep(CHECK_INTERVAL)
+            render()
+            time.sleep(RENDER_INTERVAL)
 
 if __name__ == "__main__":
     daemon = MyDaemon('/tmp/medusa-master.pid')
