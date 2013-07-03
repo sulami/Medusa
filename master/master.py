@@ -22,7 +22,6 @@ OUT_PATH = "/home/sulami/medusa.out"
 def write_log(data):
     with open(LOG_PATH, mode='a+') as logfile:
         logfile.write(time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) + " - " + data + "\n")
-    logfile.close()
 
 # read peerlist (peers.conf), returns the peer dictionary
 def read_peers():
@@ -70,8 +69,7 @@ def send_query(IP, QUERY):
 def write_out(host, query, data):
     try:
         with open(OUT_PATH, mode='a+') as output_file:
-            output_file.write(time.strftime(host + " :: " + query + " :: " + data)
-        output_file.close()
+            output_file.write(time.strftime(host + " :: " + query + " :: " + data))
     except:
         write_log("ERROR: could not output data to " + OUT_PATH)
 

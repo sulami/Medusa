@@ -8,7 +8,7 @@ import sys
 import time
 
 INST_PATH = "/home/sulami/medusa/mswo/"
-RENDER_INTERVAL = 300
+RENDER_INTERVAL = 60
 IN_PATH = "/home/sulami/medusa.out"
 OUT_PATH = "/home/sulami/mswo.html"
 HTML_HEAD = "<html>\n<head>\n<title>Medusa</title>\n<meta http-equiv=\"refresh\" content=\"" + str(RENDER_INTERVAL) + "\">\n</head>\n<body>\n<table cellpadding=\"5\">\n"
@@ -53,11 +53,12 @@ def read_data():
     except:
         sys.exit(1)
 
-write_head()
-read_data()
-write_foot()
+def render():
+    write_head()
+    read_data()
+    write_foot()
 
-"""
+
 # Generic Unix daemon code, courtesy of Sander Marechal, http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 class MyDaemon(Daemon):
     def run(self):
@@ -69,14 +70,11 @@ if __name__ == "__main__":
     daemon = MyDaemon('/tmp/medusa-master.pid')
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
-            write_log("Daemon started")
             daemon.start()
         elif 'stop' == sys.argv[1]:
             daemon.stop()
-            write_log("Daemon stopped")
         elif 'restart' == sys.argv[1]:
             daemon.restart()
-            write_log("Daemon restarted")
         else:
             print "Unknown command"
             sys.exit(2)
@@ -84,4 +82,4 @@ if __name__ == "__main__":
     else:
         print "usage: %s start|stop|restart" % sys.argv[0]
         sys.exit(2)
-"""
+
