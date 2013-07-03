@@ -67,7 +67,7 @@ class MyDaemon(Daemon):
             time.sleep(RENDER_INTERVAL)
 
 if __name__ == "__main__":
-    daemon = MyDaemon('/tmp/medusa-master.pid')
+    daemon = MyDaemon('/tmp/medusa-mswo.pid')
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             daemon.start()
