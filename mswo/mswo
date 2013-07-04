@@ -9,8 +9,9 @@ import time
 
 RENDER_INTERVAL = 60
 IN_PATH = "/home/sulami/medusa.out"
-OUT_PATH = "/home/sulami/medusa-out/index.html"
-HTML_HEAD = "<html>\n<head>\n<title>Medusa</title>\n<meta http-equiv=\"refresh\" content=\"" + str(RENDER_INTERVAL) + "\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheet.css\">\n</head>\n<body>\n<table>\n"
+OUT_PATH = "/home/sulami/medusa/mswo/web/index.html"
+HTML_HEAD = "<html>\n<head>\n<title>Medusa</title>\n<meta http-equiv=\"refresh\" content=\"" + str(RENDER_INTERVAL) + "\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheet.css\">\n</head>\n<body>\n<h1>Medusa</h1>\n<table>\n"
+HTML_MID = "</table><table id=\"counter\">"
 HTML_FOOT = "</table>\n</body>\n</html>"
 
 # Writes the upper part of the page, flushes the old page
@@ -31,13 +32,40 @@ def write_foot():
     except:
         sys.exit(1)
 
-# Writes a line of data into the table, after formatting it into a table row
+# Writes a line of data into the table, after interpreting it and formatting it into a table row
 def write_data(data):
     try:
         form = data.split(" :: ")
-        tab_row = "<tr><td>" + form[0] + "</td><td>" + form[1] + "</td><td>" + form[2] + "</td></tr>\n"
+        global stat_ok
+        global stat_warn
+        global stat_crit
+        global stat_unkwn
+        if 'OK' in form[2]:
+            color = "green"
+            stat_ok += 1
+        elif 'WARNING' in form[2]:
+            color = "yellow"
+            stat_warn += 1
+        elif 'CRITICAL' in form[2]:
+            color = "red"
+            stat_crit += 1
+        elif 'ERROR' in form[2]:
+            color = "red"
+            stat_crit += 1
+        else:
+            color = "grey"
+            stat_unkwn += 1
+        tab_row = "<tr style=\"color: " + color + "\"><td>" + form[0] + "</td><td>" + form[1] + "</td><td>" + form[2] + "</td></tr>\n"
         with open(OUT_PATH, mode='a') as file:
             file.write(tab_row)
+    except:
+        sys.exit(1)
+
+# Writes the mid section of the page
+def write_mid():
+    try:
+        with open(OUT_PATH, mode='a') as file:
+            file.write(HTML_MID + "<tr><td style=\"background-color: green\">" + str(stat_ok) + "</td><td style=\"background-color: yellow\">" + str(stat_warn) + "</td><td style=\"background-color: red\">" + str(stat_crit) + "</td><td style=\"background-color: grey\">" + str(stat_unkwn) + "</td></tr>")
         file.close()
     except:
         sys.exit(1)
@@ -53,10 +81,19 @@ def read_data():
         sys.exit(1)
 
 def render():
+    global stat_ok
+    global stat_warn
+    global stat_crit
+    global stat_unkwn
+    stat_ok = 0
+    stat_warn = 0
+    stat_crit = 0
+    stat_unkwn = 0
     write_head()
     read_data()
+    write_mid()
     write_foot()
-
+    
 
 # Generic Unix daemon code, courtesy of Sander Marechal, http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 class MyDaemon(Daemon):

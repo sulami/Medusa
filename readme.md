@@ -29,6 +29,9 @@ The repo contains three main folders, master, peer and mswo. In master are the f
     \-peer
     
     mswo
+    |-web
+    | |-stylesheet.css
+    | \-index.html
     |-daemon.py
     \-mswo
 
