@@ -1,4 +1,4 @@
-### WARNING: As of right now, Medusa is not ready for productional use. There is no functional output in any shape or form.
+### WARNING: As of right now, Medusa is not ready for productional use. It is close to feature complete, but barely tested and not at all fool-proof. Also, there is no fluff yet, meaning init-scripts, systemd-services and proper settings.
 
 # Medusa
 
