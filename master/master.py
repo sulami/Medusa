@@ -82,8 +82,9 @@ def read_services(peers):
             write_log("ERROR: could not open peers/" + peer.rstrip('\n') + ".conf as specified in peers.conf")
             return()
         for service in peerconf.readlines():
-            nservice = service.rstrip()
-            if os.path.isfile(INST_PATH + 'modules/' + nservice):
+            nservice = service.rstrip('\n')
+            nnservice = nservice.split(' ')
+            if os.path.isfile(INST_PATH + 'modules/' + nnservice[0]):
                 try:
                     result = subprocess.check_output([INST_PATH + 'modules/' + nservice, peers[peer]])
                     write_out(peer, nservice, result)
