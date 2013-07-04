@@ -7,17 +7,16 @@ import os
 import sys
 import time
 
-INST_PATH = "/home/sulami/medusa/mswo/"
 RENDER_INTERVAL = 60
 IN_PATH = "/home/sulami/medusa.out"
-OUT_PATH = "/home/sulami/mswo.html"
-HTML_HEAD = "<html>\n<head>\n<title>Medusa</title>\n<meta http-equiv=\"refresh\" content=\"" + str(RENDER_INTERVAL) + "\">\n</head>\n<body>\n<table cellpadding=\"5\">\n"
+OUT_PATH = "/home/sulami/medusa-out/index.html"
+HTML_HEAD = "<html>\n<head>\n<title>Medusa</title>\n<meta http-equiv=\"refresh\" content=\"" + str(RENDER_INTERVAL) + "\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheet.css\">\n</head>\n<body>\n<table>\n"
 HTML_FOOT = "</table>\n</body>\n</html>"
 
 # Writes the upper part of the page, flushes the old page
 def write_head():
     try:
-        with open(OUT_PATH, mode='w') as file:
+        with open(OUT_PATH, mode='w+') as file:
             file.write(HTML_HEAD)
         file.close()
     except:
