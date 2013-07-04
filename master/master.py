@@ -80,7 +80,7 @@ def read_services(peers):
             peerconf = open(INST_PATH + 'peers/' + peer + '.conf', mode='r')
         except:
             write_log("ERROR: could not open peers/" + peer.rstrip('\n') + ".conf as specified in peers.conf")
-            quit() 
+            return()
         for service in peerconf.readlines():
             nservice = service.rstrip()
             if os.path.isfile(INST_PATH + 'modules/' + nservice):

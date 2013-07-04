@@ -7,7 +7,7 @@ import os
 import sys
 import time
 
-RENDER_INTERVAL = 60
+RENDER_INTERVAL = 30
 IN_PATH = "/home/sulami/medusa.out"
 OUT_PATH = "/home/sulami/medusa/mswo/web/index.html"
 HTML_HEAD = "<html>\n<head>\n<title>Medusa</title>\n<meta http-equiv=\"refresh\" content=\"" + str(RENDER_INTERVAL) + "\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheet.css\">\n</head>\n<body>\n<h1>Medusa</h1>\n<table>\n"

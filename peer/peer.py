@@ -36,7 +36,8 @@ def listen():
         query = conn.recv(BUFFER_SIZE)
         if not query: break
         nquery = query.rstrip('\n')
-        if os.path.isfile(INST_PATH + 'modules/' + nquery) and nquery in moden:
+        nnquery = nquery.split(' ')
+        if os.path.isfile(INST_PATH + 'modules/' + nnquery[0]) and nquery in moden:
             try:
                 result = subprocess.check_output(INST_PATH + 'modules/' + nquery, shell=True)
             except:
