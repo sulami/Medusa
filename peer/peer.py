@@ -41,10 +41,10 @@ def listen():
             try:
                 result = subprocess.check_output(INST_PATH + 'modules/' + nquery, shell=True)
             except:
-                conn.send("ERROR: MODULE " + nquery + " DID NOT RETURN ZERO (BROKEN/MISSING MODULE?)")
+                conn.send("ERROR - MODULE " + nquery + " DID NOT RETURN ZERO (BROKEN/MISSING MODULE?)")
             conn.send(result)
         else:
-            conn.send("ERROR: MODULE " + nquery + " NOT FOUND OR DISABLED (modules.enabled?)\n")
+            conn.send("ERROR - MODULE " + nquery + " NOT FOUND OR DISABLED (modules.enabled?)\n")
     conn.close()
     s.close()
 
