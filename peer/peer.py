@@ -36,7 +36,10 @@ def listen():
         query = conn.recv(BUFFER_SIZE)
         if not query: break
         nquery = query.rstrip('\n')
-        nnquery = nquery.split(' ', 1)
+        try:
+            nnquery = nquery.split(' ', 1)
+        except:
+            nnquery = [nquery]
         if os.path.isfile(INST_PATH + 'modules/' + nnquery[0]) and nnquery[0] in moden:
             try:
                 result = subprocess.check_output([INST_PATH + 'modules/' + nnquery[0], nnquery[1]])
@@ -44,7 +47,11 @@ def listen():
             except subprocess.CalledProcessError, e:
                 conn.send(e.output)
             except:
-                conn.send("ERROR - MODULE " + nquery + " FAILED TO RUN (BROKEN/MISSING MODULE?)\n")
+                try:
+                    result = subprocess.check_output(INST_PATH + 'modules/' + nnquery[0])
+                    conn.send(result)
+                except:
+                    conn.send("ERROR - MODULE " + nquery + " FAILED TO RUN (BROKEN/MISSING MODULE?)\n")
         else:
             conn.send("ERROR - MODULE " + nquery + " NOT FOUND OR DISABLED (modules.enabled?)\n")
     conn.close()
