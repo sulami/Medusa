@@ -62,14 +62,19 @@ def send_query(IP, QUERY):
         s.close()
         return data
     except:
-        write_log("ERROR - could not establish connection to " + str(IP) + ":" + str(PORT))
+        write_log("ERROR: could not establish connection to " + str(IP) + ":" + str(PORT))
         return "NETWORK ERROR, CHECK LOG"
 
-# write output into a log-like file
+# Collect output for single write-out
 def write_out(host, query, data):
+    global globdata
+    globdata += host + " :: " + query + " :: " + data
+
+# write output into a log-like file
+def real_write_out():
     try:
-        with open(OUT_PATH, mode='a+') as output_file:
-            output_file.write(time.strftime(host + " :: " + query + " :: " + data))
+        with open(OUT_PATH, mode='w') as output_file:
+            output_file.write(globdata)
     except:
         write_log("ERROR: could not output data to " + OUT_PATH)
 
@@ -86,31 +91,25 @@ def read_services(peers):
             nnservice = nservice.split(' ')
             if os.path.isfile(INST_PATH + 'modules/' + nnservice[0]):
                 try:
-                    result = subprocess.check_output([INST_PATH + 'modules/' + nservice, peers[peer]])
+                    result = subprocess.check_output([INST_PATH + 'modules/' + nnservice[0], peers[peer]])
                     write_out(peer, nservice, result)
                 except:
                     write_log("ERROR: failed to run local module " + nservice)
             else:
                 write_out(peer, nservice, send_query(peers[peer], nservice))
         peerconf.close()
-
-def clear_output():
-    try:
-        open(OUT_PATH, mode='w')
-    except:
-        return
-
-"""   
-print interpret("DISK OK - free space...")
-read_services(read_peers())
 """
+globdata = ''
+read_services(read_peers())
+real_write_out()
 
+"""
 # Generic Unix daemon code, courtesy of Sander Marechal, http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 class MyDaemon(Daemon):
     def run(self):
         while True:
-            clear_output()
             read_services(read_peers())
+            real_write_out()
             time.sleep(CHECK_INTERVAL)
 
 if __name__ == "__main__":
@@ -123,8 +122,8 @@ if __name__ == "__main__":
             daemon.stop()
             write_log("Daemon stopped")
         elif 'restart' == sys.argv[1]:
-            daemon.restart()
             write_log("Daemon restarted")
+            daemon.restart()
         else:
             print "Unknown command"
             sys.exit(2)
@@ -132,3 +131,4 @@ if __name__ == "__main__":
     else:
         print "usage: %s start|stop|restart" % sys.argv[0]
         sys.exit(2)
+
