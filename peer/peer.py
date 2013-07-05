@@ -36,10 +36,10 @@ def listen():
         query = conn.recv(BUFFER_SIZE)
         if not query: break
         nquery = query.rstrip('\n')
-        nnquery = nquery.split(' ')
+        nnquery = nquery.split(' ', 1)
         if os.path.isfile(INST_PATH + 'modules/' + nnquery[0]) and nnquery[0] in moden:
             try:
-                result = subprocess.check_output(INST_PATH + 'modules/' + nquery)
+                result = subprocess.check_output([INST_PATH + 'modules/' + nnquery[0], nnquery[1]])
                 conn.send(result)
             except subprocess.CalledProcessError, e:
                 conn.send(e.output)

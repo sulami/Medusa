@@ -7,23 +7,23 @@
 <body>
 <h1>Medusa</h1>
 <table>
-<tr style="color: yellow"><td>Sokures-PC</td><td>PING.py</td><td>WARNING - package loss: 0% rtt min/avg/max/mdev = 0.472/0.708/1.157/0.318 ms
+<tr style="color: green"><td>Sokures-PC</td><td>PING.py</td><td>OK - package loss: 0% rtt min/avg/max/mdev = 0.462/0.468/0.474/0.018 ms
 </td></tr>
-<tr style="color: green"><td>hal9k</td><td>LOADAVG.py</td><td>OK - 0.64 0.77 0.68
+<tr style="color: red"><td>hal9k</td><td>LOADAVG.py</td><td>ERROR - MODULE LOADAVG.py FAILED TO RUN (BROKEN/MISSING MODULE?)
 </td></tr>
-<tr style="color: green"><td>hal9k</td><td>PING.py</td><td>OK - package loss: 0% rtt min/avg/max/mdev = 0.057/0.058/0.059/0.006 ms
+<tr style="color: green"><td>hal9k</td><td>PING.py</td><td>OK - package loss: 0% rtt min/avg/max/mdev = 0.024/0.065/0.098/0.032 ms
 </td></tr>
-<tr style="color: red"><td>hal9k</td><td>check_disk -w 80 -c 90 -p /</td><td>ERROR - MODULE check_disk -w 80 -c 90 -p / FAILED TO RUN (BROKEN/MISSING MODULE?)
+<tr style="color: yellow"><td>hal9k</td><td>check_disk -w 80 -c 90 -p /</td><td>DISK WARNING - free space: / 11761 MB (43% inode=82%); /dev 3951 MB (99% inode=99%); /dev/shm 3994 MB (99% inode=99%); /run 3983 MB (99% inode=99%); /sys/fs/cgroup 3999 MB (100% inode=99%); /var/lock 3983 MB (99% inode=99%); /var/run 3983 MB (99% inode=99%); /boot 17 MB (12% inode=99%); /windows 144557 MB (78% inode=99%); /data 265437 MB (27% inode=99%);| /=15159MB;28142;;0;28222 /dev=0MB;3871;;0;3951 /dev/shm=4MB;3919;;0;3999 /run=15MB;3919;;0;3999 /sys/fs/cgroup=0MB;3919;;0;3999 /var/lock=15MB;3919;;0;3999 /var/run=15MB;3919;;0;3999 /boot=129MB;74;;0;154 /windows=39092MB;183569;;0;183649 /data=688429MB;953786;;0;953866
 </td></tr>
-<tr style="color: green"><td>server</td><td>PING.py</td><td>OK - package loss: 0% rtt min/avg/max/mdev = 0.298/0.400/0.601/0.142 ms
+<tr style="color: green"><td>server</td><td>PING.py</td><td>OK - package loss: 0% rtt min/avg/max/mdev = 0.257/0.280/0.304/0.023 ms
 </td></tr>
-<tr style="color: yellow"><td>Switch</td><td>PING.py</td><td>WARNING - package loss: 0% rtt min/avg/max/mdev = 1.942/2.583/3.553/0.697 ms
+<tr style="color: yellow"><td>Switch</td><td>PING.py</td><td>WARNING - package loss: 0% rtt min/avg/max/mdev = 1.968/2.118/2.243/0.119 ms
 </td></tr>
-<tr style="color: red"><td>Internet</td><td>PING.py</td><td>CRITICAL - package loss: 0% rtt min/avg/max/mdev = 24.351/24.642/24.909/0.291 ms
+<tr style="color: red"><td>Internet</td><td>PING.py</td><td>CRITICAL - package loss: 0% rtt min/avg/max/mdev = 24.420/24.901/25.288/0.360 ms
 </td></tr>
-<tr style="color: green"><td>router</td><td>PING.py</td><td>OK - package loss: 0% rtt min/avg/max/mdev = 0.585/0.596/0.602/0.007 ms
+<tr style="color: green"><td>router</td><td>PING.py</td><td>OK - package loss: 0% rtt min/avg/max/mdev = 0.537/0.574/0.622/0.044 ms
 </td></tr>
-<tr style="color: green"><td>movie4k</td><td>check_http movie4k.to</td><td>HTTP OK: HTTP/1.1 302 Moved Temporarily - 178 bytes in 0.070 second response time |time=0.069767s;;;0.000000 size=178B;;;0
+<tr style="color: green"><td>movie4k</td><td>check_http movie4k.to</td><td>HTTP OK: HTTP/1.1 302 Moved Temporarily - 178 bytes in 0.070 second response time |time=0.069816s;;;0.000000 size=178B;;;0
 </td></tr>
 </table><table id="counter"><tr><td style="background-color: green">5</td><td style="background-color: yellow">2</td><td style="background-color: red">2</td><td style="background-color: grey">0</td></tr></table>
 </body>
