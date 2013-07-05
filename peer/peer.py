@@ -37,17 +37,22 @@ def listen():
         if not query: break
         nquery = query.rstrip('\n')
         nnquery = nquery.split(' ')
-        if os.path.isfile(INST_PATH + 'modules/' + nnquery[0]) and nquery in moden:
+        if os.path.isfile(INST_PATH + 'modules/' + nnquery[0]) and nnquery[0] in moden:
             try:
-                result = subprocess.check_output(INST_PATH + 'modules/' + nquery, shell=True)
+                result = subprocess.check_output(INST_PATH + 'modules/' + nquery)
+                conn.send(result)
+            except subprocess.CalledProcessError, e:
+                conn.send(e.output)
             except:
-                conn.send("ERROR - MODULE " + nquery + " DID NOT RETURN ZERO (BROKEN/MISSING MODULE?)")
-            conn.send(result)
+                conn.send("ERROR - MODULE " + nquery + " FAILED TO RUN (BROKEN/MISSING MODULE?)\n")
         else:
             conn.send("ERROR - MODULE " + nquery + " NOT FOUND OR DISABLED (modules.enabled?)\n")
     conn.close()
     s.close()
-
+"""
+while 1:
+    listen()
+"""
 # Generic Unix daemon code, courtesy of Sander Marechal, http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 class MyDaemon(Daemon):
     def run(self):
@@ -70,3 +75,4 @@ if __name__ == "__main__":
     else:
         print "usage: %s start|stop|restart" % sys.argv[0]
         sys.exit(2)
+

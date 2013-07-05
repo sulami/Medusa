@@ -14,9 +14,7 @@ CHECK_INTERVAL = 300
 LOG_PATH = "/var/log/medusa-master.log"
 OUT_PATH = "/home/sulami/medusa.out"
 
-#
-# TODO: Proper output to somewhere
-#
+globdata =''
 
 # writes events to the log
 def write_log(data):
@@ -33,7 +31,7 @@ def read_peers():
         peersconf.close()
         return peers
     except:
-        write_log("ERROR: could not open peers.conf, exiting")
+        write_log("ERROR - could not open peers.conf, exiting")
         sys.exit(1)
 
 # interprets the results coming from plugins, returns int values
@@ -62,8 +60,8 @@ def send_query(IP, QUERY):
         s.close()
         return data
     except:
-        write_log("ERROR: could not establish connection to " + str(IP) + ":" + str(PORT))
-        return "NETWORK ERROR, CHECK LOG"
+        write_log("ERROR - could not establish connection to " + str(IP) + ":" + str(PORT))
+        return "NETWORK ERROR, CHECK LOG\n"
 
 # Collect output for single write-out
 def write_out(host, query, data):
@@ -76,7 +74,7 @@ def real_write_out():
         with open(OUT_PATH, mode='w') as output_file:
             output_file.write(globdata)
     except:
-        write_log("ERROR: could not output data to " + OUT_PATH)
+        write_log("ERROR - could not output data to " + OUT_PATH)
 
 # read services from identity files (peers/<identity>.conf) and initiate the checks
 def read_services(peers):
@@ -84,7 +82,7 @@ def read_services(peers):
         try:
             peerconf = open(INST_PATH + 'peers/' + peer + '.conf', mode='r')
         except:
-            write_log("ERROR: could not open peers/" + peer.rstrip('\n') + ".conf as specified in peers.conf")
+            write_log("ERROR - could not open peers/" + peer.rstrip('\n') + ".conf as specified in peers.conf")
             return()
         for service in peerconf.readlines():
             nservice = service.rstrip('\n')
@@ -93,8 +91,11 @@ def read_services(peers):
                 try:
                     result = subprocess.check_output([INST_PATH + 'modules/' + nnservice[0], peers[peer]])
                     write_out(peer, nservice, result)
+                except subprocess.CalledProcessError, e:
+                    write_out(peer, nservice, e.output)
                 except:
-                    write_log("ERROR: failed to run local module " + nservice)
+                    write_out(peer, nservice, "ERROR - failed to run local module " + nservice)
+                    write_log("ERROR - failed to run local module " + nservice)
             else:
                 write_out(peer, nservice, send_query(peers[peer], nservice))
         peerconf.close()
@@ -108,6 +109,8 @@ real_write_out()
 class MyDaemon(Daemon):
     def run(self):
         while True:
+            global globdata
+            globdata = ''
             read_services(read_peers())
             real_write_out()
             time.sleep(CHECK_INTERVAL)

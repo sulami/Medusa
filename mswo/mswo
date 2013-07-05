@@ -40,18 +40,18 @@ def write_data(data):
         global stat_warn
         global stat_crit
         global stat_unkwn
-        if 'OK' in form[2]:
-            color = "green"
-            stat_ok += 1
-        elif 'WARNING' in form[2]:
-            color = "yellow"
-            stat_warn += 1
-        elif 'CRITICAL' in form[2]:
+        if 'CRITICAL' in form[2]:
             color = "red"
             stat_crit += 1
         elif 'ERROR' in form[2]:
             color = "red"
             stat_crit += 1
+        elif 'WARNING' in form[2]:
+            color = "yellow"
+            stat_warn += 1
+        elif 'OK' in form[2]:
+            color = "green"
+            stat_ok += 1
         else:
             color = "grey"
             stat_unkwn += 1

@@ -1,2 +1,2 @@
 LOADAVG.py
-check_disk -w 80 -c 90 -p /
+check_disk

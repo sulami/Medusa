@@ -1,3 +1,6 @@
+body {
+    background-color: #AAAAAA;
+}
 h1 {
     text-align: center;
 }
@@ -7,6 +10,9 @@ table {
     margin: auto;
     margin-top: 10px;
     padding: 2px;
+}
+tr:hover {
+    background-color: #BBBBBB;
 }
 td {
     margin: 3px;
