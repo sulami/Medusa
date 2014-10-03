@@ -1,5 +1,3 @@
-### WARNING: As of right now, Medusa is not ready for productional use. It is close to feature complete, but barely tested and not at all fool-proof. Also, there is no fluff yet, meaning init-scripts, systemd-services and proper settings.
-
 # Medusa
 
 Medusa is a distributed network monitoring tool with focus on easy configuration and management. It is entrirely written in Python, Plugins can be written in any language and it should also work with all common nagios/icinga-plugins. In the near future, there will be a status-website generator similar to munin.
@@ -27,7 +25,7 @@ The repo contains three main folders, master, peer and mswo. In master are the f
     |-modules.enabled
     |-daemon.py
     \-peer
-    
+
     mswo
     |-web
     | |-stylesheet.css
